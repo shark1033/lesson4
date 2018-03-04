@@ -1,5 +1,7 @@
 package com.java.newprject.lesson4.main;
 
+import javafx.css.Size;
+
 import java.util.Random;
 import java.util.Scanner;
 public class Main {
@@ -118,18 +120,51 @@ public class Main {
         int firstRaw=0;
         int secondRaw=0;
         int thirdRaw=0;
+        int forthRaw=0;
+        int fifthRaw=0;
         int firstColumn=0;
         int secondColumn=0;
         int thirdColumn=0;
+        int forthColumn=0;
+        int fifthColumn=0;
         if(symb==DOT_O) {
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
-                    if ( i == j && map[i][j]==symb) {
+                    if (i == j && map[i][j] == symb) {
                         diaganal++;
-                        firstRaw++;
-                        firstColumn++;
+                        //firstRaw++;
+                        //firstColumn++;
                     }
-                    else if (j==1 && i == 0 && map[i][j]==symb) {
+                }
+            }
+            for(int i=0;i<SIZE;i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    if (SIZE - 1 - i == j && map[i][j] == symb) {
+                        diagonal2++;
+                    }
+                }
+            }
+            for(int i=0;i<SIZE;i++){ //lines
+                for(int j=0;j<SIZE;j++) {
+                    if (map[i][j] == symb && i == 0) {
+                        firstRaw++;
+                    } else if (map[i][j] == symb && i == 1) {
+                        secondRaw++;
+                    } else if (map[i][j] == symb && i == 2) {
+                        thirdRaw++;
+                    } else if (map[i][j] == symb && i == 3) {
+                        forthRaw++;
+                    } else if (map[i][j] == symb && i == 4) {
+                        fifthRaw++;
+                    }
+                }
+                   
+            for(int i=0;i<SIZE;i++){ //column
+                for(int j=0;j<SIZE;j++) {
+
+                }
+            }
+                    if (j==1 && i == 0 && map[i][j]==symb) {
                         firstRaw++;
                         firstColumn++;
                     }
@@ -141,10 +176,5 @@ public class Main {
                 }
             }
         }
-        else {
-        }
-        System.out.println("Leonid Smirnoff");
 
-        return true;
-    }
 }

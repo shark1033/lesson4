@@ -1,11 +1,9 @@
 package com.java.newprject.lesson4.main;
 
-import javafx.css.Size;
-
 import java.util.Random;
 import java.util.Scanner;
 public class Main {
-    public static int SIZE = 3;
+    public static int size;
     public static int DOTS_TO_WIN = 3;
     public static final char DOT_EMPTY = '•';
     public static final char DOT_X = 'X';
@@ -15,12 +13,15 @@ public class Main {
     public static Random rand = new Random();
 
     public static void main(String[] args) {
+        System.out.println("Введите размерность поля (цифра от 1 до ... как вам угодно)");
+        size=sc.nextInt();
         initMap();
         printMap();
         while (true) {
             humanTurn();
             printMap();
-            if (checkWin(DOT_X)) {
+            //if (checkWin(DOT_X)) {
+            if (check(DOT_X)) {
                 System.out.println("Победил человек");
                 break;
             }
@@ -30,7 +31,8 @@ public class Main {
             }
             aiTurn();
             printMap();
-            if (checkWin(DOT_O)) {
+            //if (checkWin(DOT_O)) {
+            if (check(DOT_X)) {
                 System.out.println("Победил Искуственный Интеллект");
                 break;
             }
@@ -55,8 +57,8 @@ public class Main {
     }
 
     public static boolean isMapFull() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (map[i][j] == DOT_EMPTY) return false;
             }
         }
@@ -66,8 +68,8 @@ public class Main {
     public static void aiTurn() {
         int x, y;
         do {
-            x = rand.nextInt(SIZE);
-            y = rand.nextInt(SIZE);
+            x = rand.nextInt(size);
+            y = rand.nextInt(size);
         } while (!isCellValid(x, y));
         System.out.println("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
         map[y][x] = DOT_O;
@@ -84,28 +86,28 @@ public class Main {
     }
 
     public static boolean isCellValid(int x, int y) {
-        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
+        if (x < 0 || x >= size || y < 0 || y >= size) return false;
         if (map[y][x] == DOT_EMPTY) return true;
         return false;
     }
 
     public static void initMap() {
-        map = new char[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        map = new char[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 map[i][j] = DOT_EMPTY;
             }
         }
     }
 
     public static void printMap() {
-        for (int i = 0; i <= SIZE; i++) {
+        for (int i = 0; i <= size; i++) {
             System.out.print(i + " ");
         }
         System.out.println();
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.print((i + 1) + " ");
-            for (int j = 0; j < SIZE; j++) {
+            for (int j = 0; j < size; j++) {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
@@ -114,71 +116,77 @@ public class Main {
     }
 
     public static boolean check(char symb) {
-
-
-        return true;
-    }
-
-
-    public static boolean checkWin1(char symb) {
-        int diaganal = 0;
-        int diagonal2 = 0;
-        int firstRaw = 0;
-        int secondRaw = 0;
-        int thirdRaw = 0;
-        int forthRaw = 0;
-        int fifthRaw = 0;
-        int firstColumn = 0;
-        int secondColumn = 0;
-        int thirdColumn = 0;
-        int forthColumn = 0;
-        int fifthColumn = 0;
-        //if(symb==DOT_O) {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (i == j && map[i][j] == symb) {
-                    diaganal++;
-                    //firstRaw++;
-                    //firstColumn++;
-                }
-            }
-        }
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (SIZE - 1 - i == j && map[i][j] == symb) {
-                    diagonal2++;
-                }
-            }
-        }
-        for (int i = 0; i < SIZE; i++) { //lines
-            for (int j = 0; j < SIZE; j++) {
-                if (map[i][j] == symb && i == 0) {
-                    firstRaw++;
-                } else if (map[i][j] == symb && i == 1) {
-                    secondRaw++;
-                } else if (map[i][j] == symb && i == 2) {
-                    thirdRaw++;
-                } else if (map[i][j] == symb && i == 3) {
-                    forthRaw++;
-                } else if (map[i][j] == symb && i == 4) {
-                    fifthRaw++;
-                }
-            }
-        }
-
-        for (int i = 0; i < SIZE; i++) { //column not ready
-            for (int j = 0; j < SIZE; j++) {
-                if (j == 1 && i == 0 && map[i][j] == symb) {
-                    firstRaw++;
-                    firstColumn++;
-                } else if (j == 2 && i == 0 && map[i][j] == symb) {
-                    firstRaw++;
-                    secondColumn++;
+            int counter = 0;
+            while (counter != size) {
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        if (size - 1 - i == j && map[i][j] == symb) {
+                            counter++;
+                        }
+                    }
 
                 }
-            }
-        }
+                if(counter==size){
+                    return true;
+                    //break;
+                }
+                else {
+                    counter = 0;
+                }
 
-        return true;
-    }
+
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        if (i == j && map[i][j] == symb) {
+                            counter++;
+                        }
+                    }
+                }
+                if(counter==size){
+                    return true;
+                    //break;
+                }
+                else {
+                    counter = 0;
+                }
+
+                for (int i = 0; i < size; i++) {  //lines
+                    for (int j = 0; j < size; j++) {
+                        if(map[i][j] == symb) {
+                            counter++;
+
+                        }
+                    }
+                    if(counter==size){
+                        return true;
+                        //break;
+                    }
+                    else {
+                        counter = 0;
+                    }
+                }
+                counter = 0;
+                for (int i = 0; i < size; i++) {  //columns
+                    for (int j = 0; j < size; j++) {
+                        if (map[j][i] == symb) {
+                            counter++;
+                        }
+                    }
+                    if(counter==size){
+                        return true;
+                        //break;
+                    }
+                    else {
+                        counter = 0;
+                    }
+                }
+                break;
+            }
+            if(counter== size) {
+                    return true;
+                                    }
+            else{
+                return false;
+                }
+        }
 }

@@ -20,7 +20,6 @@ public class Main {
         while (true) {
             humanTurn();
             printMap();
-            //if (checkWin(DOT_X)) {
             if (check(DOT_X)) {
                 System.out.println("Победил человек");
                 break;
@@ -31,7 +30,6 @@ public class Main {
             }
             aiTurn();
             printMap();
-            //if (checkWin(DOT_O)) {
             if (check(DOT_X)) {
                 System.out.println("Победил Искуственный Интеллект");
                 break;
@@ -42,18 +40,6 @@ public class Main {
             }
         }
         System.out.println("Игра закончена");
-    }
-
-    public static boolean checkWin(char symb) {
-        if (map[0][0] == symb && map[0][1] == symb && map[0][2] == symb) return true;
-        if (map[1][0] == symb && map[1][1] == symb && map[1][2] == symb) return true;
-        if (map[2][0] == symb && map[2][1] == symb && map[2][2] == symb) return true;
-        if (map[0][0] == symb && map[1][0] == symb && map[2][0] == symb) return true;
-        if (map[0][1] == symb && map[1][1] == symb && map[2][1] == symb) return true;
-        if (map[0][2] == symb && map[1][2] == symb && map[2][2] == symb) return true;
-        if (map[0][0] == symb && map[1][1] == symb && map[2][2] == symb) return true;
-        if (map[2][0] == symb && map[1][1] == symb && map[0][2] == symb) return true;
-        return false;
     }
 
     public static boolean isMapFull() {
@@ -117,7 +103,6 @@ public class Main {
 
     public static boolean check(char symb) {
             int counter = 0;
-            while (counter != size) {
                 for (int i = 0; i < size; i++) {
                     for (int j = 0; j < size; j++) {
                         if (size - 1 - i == j && map[i][j] == symb) {
@@ -128,7 +113,6 @@ public class Main {
                 }
                 if(counter==size){
                     return true;
-                    //break;
                 }
                 else {
                     counter = 0;
@@ -144,7 +128,6 @@ public class Main {
                 }
                 if(counter==size){
                     return true;
-                    //break;
                 }
                 else {
                     counter = 0;
@@ -180,13 +163,6 @@ public class Main {
                         counter = 0;
                     }
                 }
-                break;
-            }
-            if(counter== size) {
-                    return true;
-                                    }
-            else{
                 return false;
                 }
-        }
 }
